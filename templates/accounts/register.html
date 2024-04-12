@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="{% static 'index1.css'%}" rel="stylesheet"/>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <h2 class="text-center mb-4">Sign Up</h2>
+        {% include 'includes/alerts.html' %}
+        <form action="{% url 'register' %}" method="POST">
+            {% csrf_token %}
+            {{ form.first_name }}
+            {{ form.last_name }}
+            {{ form.email }}
+            {{ form.password }}
+            {{ form.confirm_password }}
+            {{ form.date_of_birth }}
+            {{ form.gender }}
+            {{ form.phone_number }}
+            {{ form.referral }}
+            {{ form.profession }}
+            
+            
+          <button type="submit" class="btn btn-block">Sign Up</button>
+           <!-- form-group// -->
+           {{ form.email.errors }}
+           {{ form.non_field_errors }}
+        </form>
+        <p class="mt-3 text-center">Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

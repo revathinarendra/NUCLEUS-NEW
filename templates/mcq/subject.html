@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="main p-3 ">
+    <div class="d-flex justify-content-between mb-4 adjustSmallscreen" style="align-items: center;">
+        <h1>Subjects</h1>
+        <form action="{% url 'search_view_name' %}" method="get" class="d-flex justify-content-between shadow">
+            <input type="text" name="query" class="searchInput" style="border-width: 0px;" placeholder="Search"/>
+            <button type="submit" style="border-width: 0px;"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
+    <div class="container style">
+        <div class="row">
+            {% for subject in subjects %}
+                <div class="col-lg-4 col-xl-3 mb-4 mr-1">
+                    <div class="card shadow">
+                        {% if subject.subject_image %}
+                        <img src="{{ subject.subject_image.url }}" class="card-img-top cardImg" alt="Image for {{ subject.subject_name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ subject.subject_name }}</h5>
+                            <div class="p-1">
+                                <p>Total Topics : 8 <br> Total SubTopics : 16 <br>Total MCQS : 60 </p>
+                            </div>
+                           
+                            <a href="{% url 'start_course' subject.pk %}" class="btn btn-primary" role="button">
+                                Start Course for {{ subject.subject_name }}
+                            </a>
+                            
+                        
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No subjects available.</p>
+            {% endfor %}
+        </div>
+     
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const startCourseButtons = document.querySelectorAll('.start-course-btn');
+        
+            startCourseButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const dropdownContent = this.nextElementSibling;
+                    dropdownContent.classList.toggle('show');
+                });
+            });
+        });
+        </script>
+{% endblock %}

@@ -1,0 +1,25 @@
+body {
+    background: linear-gradient(90deg, #0e0023 0%, #4b00a6 100%);
+    color: #fff;
+  }
+  .form-control {
+    border-color: #8A2BE2;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  .form-control:focus {
+    border-color: #8A2BE2;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+  }
+  .btn {
+    background-color: #8A2BE2;
+    border-color: #8A2BE2;
+  }
+  .btn:hover {
+    background-color: #4B0082;
+    border-color: #4B0082;
+  }
+  option{
+      background-color: black;
+  }

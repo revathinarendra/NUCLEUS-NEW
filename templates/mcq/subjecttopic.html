@@ -1,0 +1,113 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div class="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="navbar">
+                    <i class="bi bi-search m-3" style="width:30px; height:30px"></i>
+                    <button class="nav-btn" data-target="course-content">Course Content</button>
+                    <button class="nav-btn" data-target="overview">Overview</button>
+                    <button class="nav-btn" data-target="notes">Notes</button>
+                    <button class="nav-btn" data-target="announcements">Announcements</button>
+                    <button class="nav-btn" data-target="reviews">Reviews</button>
+                    <button class="nav-btn" data-target="learning-tools">Learning Tools</button>
+                </div>
+                
+                {% for topic in topics %}
+            
+
+                <div class="dropdown">
+                    <div class="dropdown-btn text-start w-100 p-3 pb-0 pt-2 d-flex justify-content-between" style="align-items: center;">
+                        <p>{{ topic.topic_name }}<br/>
+                            <span>{{ topic.subtopic_set.count }} Sub Topics</span>
+                        </p> 
+                        <p class="text-end"><i class="bi bi-chevron-down"></i></p>
+                    </div>
+                    
+                    <div class="dropdown-content  text-dark p-3">
+                        {% for subtopic in topic.subtopic_set.all %}
+                        <div class="hovering">
+                            <div class="d-flex">
+                                <input type="checkbox" id="subTopic{{ subtopic.id }}">
+                                <label for="subTopic{{ subtopic.id }}" class="p-2">{{ subtopic.sub_topic_name }}</label>
+                            </div>
+                            <p class="p-3 pt-0 pb-0"><i class="bi bi-clipboard2-check"></i> {{ subtopic.question_set.count }} MCQS</p>
+                            <a href="{% url 'subtopic_questions' subtopic.pk %}">View Questions</a>
+                          </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+                <div id="overview" class="content text-center p-5" >
+                    <h2>This Is Overview</h2>
+                  </div>
+                
+                  <div id="notes" class="content text-center p-5">
+                    <h2>This Is Notes</h2>
+                  </div>
+                
+                  <div id="announcements" class="content text-center p-5">
+                    <h2>This Is Announcements</h2>
+                  </div>
+                
+                  <div id="reviews" class="content text-center p-5">
+                    <h2>This Is Reviews</h2>
+                  </div>
+                
+                  <div id="learning-tools" class="content text-center p-5">
+                    <h2>This Is Learning Tools</h2>
+                  </div>
+    
+    
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script>
+        const hamBurger = document.querySelector(".toggle-btn");
+    
+    hamBurger.addEventListener("click", function () {
+        document.querySelector("#sidebar").classList.toggle("expand");
+        setTimeout(function () {
+            document.querySelector("#sidebar").style.transition = 'all .3s ease-out';
+        }, 300); // Delay to match the transition duration
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+  const dropdownBtns = document.querySelectorAll('.dropdown-btn');
+
+  dropdownBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const dropdownContent = this.nextElementSibling;
+      dropdownContent.classList.toggle('show');
+    });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('course-content').classList.add('active');
+
+  document.querySelectorAll('.nav-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const target = this.getAttribute('data-target');
+      document.querySelectorAll('.content').forEach(content => {
+        content.classList.remove('active');
+      });
+      document.getElementById(target).classList.add('active');
+    });
+  });
+});
+
+document.querySelectorAll('.nav-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const target = this.getAttribute('data-target');
+        document.querySelectorAll('.content').forEach(content => {
+          content.classList.remove('active');
+        });
+        document.getElementById(target).classList.add('active');
+      });
+    });
+            </script>
+{% endblock %}

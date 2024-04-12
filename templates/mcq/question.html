@@ -1,0 +1,18 @@
+<!-- mcq/question_list.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+  {% for question in questions %}
+    <div class="question">
+      <h3>{{ question.question_text }}</h3>
+      <form method="post">
+        {% csrf_token %}
+        {% for option in question.options %}
+          <input type="radio" id="option_{{ forloop.counter }}" name="selected_option" value="{{ option }}" {% if option == question.correct_answer %}data-correct="true"{% endif %}>
+          <label for="option_{{ forloop.counter }}" {% if option == question.correct_answer %}class="correct-option"{% endif %}>{{ option }}</label><br>
+        {% endfor %}
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  {% endfor %}
+{% endblock %}
